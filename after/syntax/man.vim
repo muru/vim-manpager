@@ -1,11 +1,10 @@
-syntax match Backhide '.\b' conceal contained
-syntax match Highlighted '\v[-$]?(.\b.)+(\(\d\w*\))?' contains=Bold,SubHeading,Heading,Option,ManPage,EnvVar,Underlined
-syntax match Bold       contains=Backhide contained  '\(.\b.\)\+'
-syntax match Heading    contains=Backhide contained  '^\u\b\u\(.\b.\s\?\)*$'
-syntax match Option     contains=Backhide contained  '\v<(-\b-){1,2}(.\b.)*'
-syntax match ManPage    contains=Backhide contained  '\(.\b.\)\+(\d\w*)'
-syntax match EnvVar     contains=Backhide contained  '\$\(.\b.\)\+'
-syntax match Underlined contains=Backhide contained  '\(_\b.\)\+'
+syntax  match  HideMarker  '[\x1\x2]'                  conceal  contained  containedin=Underlined,Bold,ManPage,Option,EnvVar,Heading
+syntax  match  Bold        '\%x1.\{-}\%x1'
+syntax  match  Heading     '^\%x1\u.*\%x1$'
+syntax  match  Option      '\%x1--\?[^\x1]\{-1,}\%x1'
+syntax  match  ManPage     '\%x1[^\x1]*\%x1(\d\w*)'
+syntax  match  EnvVar      '\%x1\$\u.\{-}\%x1'
+syntax  match  Underlined  '\%x2.\{-}\%x2'
 
 highlight link Bold    Constant
 highlight link Heading Exception

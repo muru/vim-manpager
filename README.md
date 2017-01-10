@@ -4,8 +4,10 @@ A plugin that makes it easier to use Vim is `$MANPAGER`.
 
 It:
 
-1. Keeps the backspaces added by `man` and conceals them.
-2. It uses these backspace-highlighted words to do syntax highlighting.
+1. Removes the backspaces added by `man`, and marks the removals is with 0x01
+   and 0x02 characters.
+2. It uses these markers to do syntax highlighting, and adds them to `iskeyword`
+   so that `*`-searching for highlighted terms only match highlighted commands.
 3. Syntax highlighting for a few more types than the default
    `syntax/man.vim` (options, environment variables, man-highlighted
     manpages, section headings, etc.).
@@ -30,6 +32,10 @@ export MANPAGER
 
 Right now, it doesn't have any configurable settings.
 
+Another possibility for `MANPAGER` is:
+
+    MANPAGER='env "MAN_PN=$MAN_PN" vim -'
+
 ---
 
 ## Notes
@@ -42,7 +48,7 @@ display width, you might want to set `MANWIDTH` to a value less than
 
     MANWIDTH=80
 
-Since the backspaces are kept, side-scrolling is ugly.
+Because of concealed characters, side-scrolling can be ugly.
 
 ### Vim's default manpage settings
 

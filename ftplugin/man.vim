@@ -10,7 +10,7 @@ if exists("b:did_manpager")
 	finish
 endif
 let b:did_manpager = 1
-exec "setlocal iskeyword+=\b,_"
+exec "setlocal iskeyword+=\x1,\x2,_"
 
 if !exists("*s:Man")
 	let s:man_stack = []
@@ -25,16 +25,15 @@ if !exists("*s:Man")
 			return
 		endif
 
-		let l:cmd = ['MAN_KEEP_FORMATTING=1', 'man'] + a:000 
+		let l:cmd = ['MAN_KEEP_FORMATTING=1', 'MANPAGER=cat', 'man'] + a:000
 		enew
 		call append(line(0), systemlist(join(l:cmd)))
 		set ft=man
 		call <SID>PrepManPager(l:manpage)
-		0
 	endfunction
 
 	function! s:CursorMan()
-		let l:word = substitute(expand('<cWORD>'), '.\b', '', 'g')
+		let l:word = substitute(expand('<cWORD>'), '\%x1', '', 'g')
 		if winnr('$') == 1
 			vnew
 		endif
@@ -47,6 +46,9 @@ if !exists("*s:Man")
 		if !empty(a:man)
 			exe "file" a:man
 		endif
+		silent keepp %s/\(_\b.\)\{2,}/\="\2".substitute(submatch(0),'_\b\(.\)','\1','g')."\2"/ge
+		undojoin | silent keepp %s/\(\$\)\?\(.\b.\)\+/\="\1".substitute(submatch(0),'.\b\(.\)','\1','g')."\1"/ge
+		0
 		setlocal nomodified
 		setlocal nomodifiable
 	endfunction
