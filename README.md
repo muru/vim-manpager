@@ -4,8 +4,8 @@ A plugin that makes it easier to use Vim is `$MANPAGER`.
 
 It:
 
-1. Removes the backspaces added by `man`, and marks the removals is with 0x01
-   and 0x02 characters.
+1. Removes the backspaces added by `man`, and marks the removals is with `0x01`
+   and `0x02` characters.
 2. It uses these markers to do syntax highlighting, and adds them to `iskeyword`
    so that `*`-searching for highlighted terms only match highlighted commands.
 3. Syntax highlighting for a few more types than the default
@@ -18,12 +18,12 @@ environment variables:
 
 1. `~/.pam_environment`:
 
- ```sh
+    ```sh
 MANPAGER='vim -'
 ``` 
 2. `~/.profile`:
 
- ```sh
+    ```sh
 MANPAGER='vim -'
 export MANPAGER
 ```
