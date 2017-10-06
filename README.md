@@ -19,14 +19,14 @@ environment variables:
 1. `~/.pam_environment`:
 
     ```sh
-MANPAGER='vim -'
-``` 
+    MANPAGER='vim -'
+    ``` 
 2. `~/.profile`:
 
     ```sh
-MANPAGER='vim -'
-export MANPAGER
-```
+    MANPAGER='vim -'
+    export MANPAGER
+    ```
 
 (And so on….)
 
