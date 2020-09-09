@@ -61,3 +61,5 @@ nnoremap <buffer> q :q!<CR>
 nnoremap <buffer> <Space> <PageDown>
 nnoremap <buffer> <CR>  :call <SID>CursorMan()<CR>
 nnoremap <buffer> K  :call <SID>CursorMan()<CR>
+
+command! MANPAGER :call  <SID>PrepManPager($MAN_PN)
